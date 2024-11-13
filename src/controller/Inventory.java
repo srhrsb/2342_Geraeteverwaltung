@@ -14,7 +14,8 @@ public class Inventory {
         itemList = new ArrayList<>();
         itemList.add( new Item( "T123455", "Toaster", LocalDate.now() ));
 
-        System.out.println(itemList.get(0).getName());
+        Item firstItem = itemList.get(0);
+        System.out.println(firstItem.getName());
 
 
     }
