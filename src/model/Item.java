@@ -6,9 +6,9 @@ public class Item {
 
     private String id;
     private String name;
-    private LocalDate date;
+    private String date;
 
-    public Item(String id, String name, LocalDate date) {
+    public Item(String id, String name, String date) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -30,11 +30,11 @@ public class Item {
         this.name = name;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
