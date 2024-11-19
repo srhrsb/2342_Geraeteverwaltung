@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MainView extends JFrame {
@@ -28,11 +29,16 @@ public class MainView extends JFrame {
     }
 
     private void createUI(){
+        setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         setLayout( new BorderLayout() );
 
         //2 Panel erzeugen, in die später Button und Textfelder rein kommen
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
+
+        //Layout für Toppanel festlegen
+        topPanel.setLayout( new GridLayout(3,2));
+        topPanel.setBorder( new EmptyBorder( 5,5,5,5 ));
 
         //hinzufügen der Panel
         add(topPanel, BorderLayout.NORTH );
@@ -64,6 +70,8 @@ public class MainView extends JFrame {
 
         setVisible(true);
     }
+
+
 
 
 
