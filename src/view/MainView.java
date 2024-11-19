@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
 
@@ -71,7 +72,41 @@ public class MainView extends JFrame {
         setVisible(true);
     }
 
+    public String getIdText(){
+        return idTf.getText();
+    }
 
+    public String getNameText(){
+        return nameTf.getText();
+    }
+
+    public String getDateText(){
+        return dateTf.getText();
+    }
+
+    //ToDo: 3 Methoden zum zuweisen der 3 Textfelder z.b.setIdText usw.
+
+    public void setIdText( String id ){
+        idTf.setText(id);
+    }
+
+    public void setNameText( String name ){
+         nameTf.setText(name);
+    }
+
+    public void setDateText( String date ){
+         dateTf.setText(date);
+    }
+
+    //Eventhandler------------
+
+    public void addSaveHandler( ActionListener listener){
+        saveBtn.addActionListener( listener );
+    }
+
+    public void addLoadHandler( ActionListener listener){
+        loadBtn.addActionListener( listener );
+    }
 
 
 
