@@ -25,9 +25,8 @@ public class Inventory {
 
         view.addSaveHandler( this::saveNewItem );
         view.addLoadHandler( this::loadItem );
-
+        view.addDeleteHandler( this::deleteItem );
     }
-
 
     /**
      * Save Action aufgerufen von Save Button
@@ -44,18 +43,18 @@ public class Inventory {
         String name = view.getNameText();
         String date = view.getDateText();
 
-        if( id.length() < MIN_ID_LENGTH ) {
-            //Todo: Meldung an Nutzer, dass Id zu kurz ist
+        if( id.length() < MIN_ID_LENGTH || !isIdUnique(id) ) {
+              view.showErrorMessage("Die Id soll mindestens "+MIN_ID_LENGTH+" Stellen haben und noch nicht genutzt werden");
               return;
         }
 
         if( name.length() < MIN_NAME_LENGTH ) {
-            //Todo: Meldung an Nutzer, dass Name zu kurz ist
+            view.showErrorMessage("Der Name soll mindestens "+MIN_NAME_LENGTH+" Stellen haben");
             return;
         }
 
         if( date.length() < MIN_DATE_LENGTH ) {
-            //Todo: Meldung an Nutzer, dass Date zu kurz ist
+            view.showErrorMessage("Das Datum soll mindestens "+MIN_DATE_LENGTH+" Stellen haben");
             return;
         }
 
@@ -68,9 +67,16 @@ public class Inventory {
         //Überprüfen Sie ob die ID schon verwendet wurde und legen Sie ein neues Item nur an,
         //wenn es nicht so ist
 
+    }
 
+    private boolean isIdUnique( String id){
+        for( var item : itemList ){
+            if(item.getId().equals(id)){
+                return false;
+            }
+        }
 
-
+        return true;
     }
 
     /**
@@ -78,8 +84,32 @@ public class Inventory {
      * @param event Action Event
      */
     private void loadItem( ActionEvent event){
+
         System.out.println( event.getActionCommand() );
+
+
+
     }
 
+    /**
+     * Delete Action aufgerufen von Delete Button
+     * @param event Action Event
+     */
+    private void deleteItem( ActionEvent event){
 
+        System.out.println( event.getActionCommand() );
+
+        String id = view.getIdText();
+
+        System.out.println(itemList.size());
+
+        for( var item : itemList ){
+            if(item.getId().equals(id)){ //das ist die gesuchte Id, wenn wahr
+                itemList.remove(item);
+            }
+        }
+        //ToDo: evtl. Fehlerbehebung nötig beim Löschen des Items
+
+        System.out.println(itemList.size());
+    }
 }

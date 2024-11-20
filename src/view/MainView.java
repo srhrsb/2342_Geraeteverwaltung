@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
 
-    private JButton saveBtn, loadBtn;
+    private JButton saveBtn, loadBtn, deleteBtn;
 
     private JTextField idTf, nameTf, dateTf;
 
@@ -47,9 +47,11 @@ public class MainView extends JFrame {
 
         loadBtn = new JButton("Laden");
         saveBtn = new JButton("Speichern");
+        deleteBtn = new JButton("Löschen");
 
         bottomPanel.add(loadBtn);
         bottomPanel.add(saveBtn);
+        bottomPanel.add(deleteBtn);
 
         JLabel idLabel = new JLabel("ID");
         idTf = new JTextField();
@@ -108,6 +110,12 @@ public class MainView extends JFrame {
         loadBtn.addActionListener( listener );
     }
 
+    public void addDeleteHandler( ActionListener listener){
+        deleteBtn.addActionListener( listener );
+    }
 
+    public void showErrorMessage( String message ){
+        JOptionPane.showMessageDialog(this, message, "Fehler", JOptionPane.ERROR_MESSAGE );
+    }
 
 }
