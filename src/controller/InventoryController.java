@@ -1,27 +1,26 @@
 package controller;
 
+import dao.InventoryDAO;
 import model.Item;
 import view.MainView;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Inventory {
-
+public class InventoryController {
     private ArrayList<Item> itemList;
     private MainView view;
+    private InventoryDAO dao;
 
     //Konstanten
     private final int MIN_ID_LENGTH = 6;
     private final int MIN_NAME_LENGTH = 8;
     private final int MIN_DATE_LENGTH = 4;
 
-    public Inventory(){
+    public InventoryController(){
         itemList = new ArrayList<>();
         view = new MainView(500, 150, "Geräteverwaltung");
+        dao = new InventoryDAO();
 
         view.addSaveHandler( this::saveNewItem );
         view.addLoadHandler( this::loadItem );
@@ -35,9 +34,7 @@ public class Inventory {
     private void saveNewItem( ActionEvent event ){
 
         System.out.println( event.getActionCommand() );
-
         //Todo: neues Objekt von Item erzeugen und speichern
-
         //1. Schritt: Versuchen, die eingetragenen Daten zu holen
         String id = view.getIdText();
         String name = view.getNameText();
@@ -59,13 +56,8 @@ public class Inventory {
         }
 
         //Daten sind valide
-        itemList.add( new Item( id, name, date ) );
+        dao.saveInventory(itemList);
         System.out.println(itemList.getLast().getName());
-
-
-        //Freiwillige HA:
-        //Überprüfen Sie ob die ID schon verwendet wurde und legen Sie ein neues Item nur an,
-        //wenn es nicht so ist
 
     }
 
@@ -87,8 +79,6 @@ public class Inventory {
 
         System.out.println( event.getActionCommand() );
 
-
-
     }
 
     /**
@@ -106,6 +96,7 @@ public class Inventory {
         for( var item : itemList ){
             if(item.getId().equals(id)){ //das ist die gesuchte Id, wenn wahr
                 itemList.remove(item);
+                return;
             }
         }
         //ToDo: evtl. Fehlerbehebung nötig beim Löschen des Items
