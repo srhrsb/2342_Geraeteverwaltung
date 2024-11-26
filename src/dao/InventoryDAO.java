@@ -17,7 +17,7 @@ public class InventoryDAO {
      * @return Erfolgsmeldung
      */
     public boolean saveInventory( ArrayList<Item> currentInventory){
-        //hier kann einiges schief gehen, dass vorab nicht
+        //hier kann einiges schief gehen, das vorab nicht
         //zu prüfen ist
         FileWriter csv = null;
         try{
