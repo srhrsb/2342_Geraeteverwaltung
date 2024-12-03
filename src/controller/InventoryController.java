@@ -5,6 +5,7 @@ import model.Item;
 import view.MainView;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class InventoryController {
@@ -56,6 +57,7 @@ public class InventoryController {
         }
 
         //Daten sind valide
+        itemList.add( new Item(id, name, date) );
         dao.saveInventory(itemList);
         System.out.println(itemList.getLast().getName());
 
@@ -79,7 +81,28 @@ public class InventoryController {
 
         System.out.println( event.getActionCommand() );
 
+        itemList = dao.loadInventory();
+
+
+        showAllData();
     }
+
+    /**
+     * Zeigt alle bisher gespeicherten Daten an
+     */
+    private void showAllData(){
+
+        String text = "";
+
+        for( Item item : itemList){
+            text +="ID: " + item.getId() + "\n";
+            text +="Name: " + item.getName() + "\n";
+            text +="Gekauft: " + item.getDate() + "\n\n";
+        }
+
+        view.showInfoMessage( text );
+    }
+
 
     /**
      * Delete Action aufgerufen von Delete Button
