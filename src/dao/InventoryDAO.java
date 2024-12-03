@@ -24,9 +24,15 @@ public class InventoryDAO {
             csv = new FileWriter( PATH );
             for(var item : currentInventory ){
                 if(item != null) {
+                    String brokenState = "Not_Broken";
+                    if( item.isBroken() ){
+                        brokenState = "Broken";
+                    }
+
                     String line = item.getId() + SEPARATOR +
                             item.getName() + SEPARATOR +
-                            item.getDate() + "\n";
+                            item.getDate() + SEPARATOR +
+                            brokenState + "\n";
 
                     csv.write(line);
                 }
@@ -78,7 +84,9 @@ public class InventoryDAO {
                 String name = data[1];
                 String date = data[2];
 
-                Item item = new Item( id, name, date );
+                boolean isBroken = data[3].equals("Broken");
+
+                Item item = new Item( id, name, date, isBroken );
                 itemList.add(item);
             }
         }

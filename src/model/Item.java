@@ -7,11 +7,13 @@ public class Item {
     private String id;
     private String name;
     private String date;
+    private boolean isBroken;
 
-    public Item(String id, String name, String date) {
+    public Item(String id, String name, String date, boolean isBroken) {
         this.id = id;
         this.name = name;
         this.date = date;
+        this.isBroken = isBroken;
     }
 
     public String getId() {
@@ -36,5 +38,13 @@ public class Item {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public boolean isBroken() {
+        return isBroken;
+    }
+
+    public void setBroken(boolean broken) {
+        isBroken = broken;
     }
 }

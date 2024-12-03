@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class MainView extends JFrame {
 
     private JButton saveBtn, loadBtn, deleteBtn;
+    private JCheckBox isBrokenChkBox;
 
     private JTextField idTf, nameTf, dateTf;
 
@@ -38,7 +39,7 @@ public class MainView extends JFrame {
         JPanel bottomPanel = new JPanel();
 
         //Layout für Toppanel festlegen
-        topPanel.setLayout( new GridLayout(3,2));
+        topPanel.setLayout( new GridLayout(4,2));
         topPanel.setBorder( new EmptyBorder( 5,5,5,5 ));
 
         //hinzufügen der Panel
@@ -62,14 +63,17 @@ public class MainView extends JFrame {
         JLabel dateLabel = new JLabel("Anschaffungsdatum");
         dateTf = new JTextField();
 
+        JLabel isBrokenLabel = new JLabel("Zur Zeit defekt");
+        isBrokenChkBox = new JCheckBox();
+
         topPanel.add(idLabel);
         topPanel.add(idTf);
         topPanel.add(nameLabel);
         topPanel.add(nameTf);
         topPanel.add(dateLabel);
         topPanel.add(dateTf);
-
-
+        topPanel.add(isBrokenLabel);
+        topPanel.add(isBrokenChkBox);
 
         setVisible(true);
     }
@@ -98,6 +102,14 @@ public class MainView extends JFrame {
 
     public void setDateText( String date ){
          dateTf.setText(date);
+    }
+
+    public void setIsBroken( boolean isBroken ){
+        isBrokenChkBox.setSelected( isBroken );
+    }
+
+    public boolean getIsBroken(){
+       return isBrokenChkBox.isSelected();
     }
 
     //Eventhandler------------

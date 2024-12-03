@@ -20,12 +20,14 @@ public class InventoryController {
 
     public InventoryController(){
         itemList = new ArrayList<>();
-        view = new MainView(500, 150, "Geräteverwaltung");
+        view = new MainView(500, 200, "Geräteverwaltung");
         dao = new InventoryDAO();
 
         view.addSaveHandler( this::saveNewItem );
         view.addLoadHandler( this::loadItem );
         view.addDeleteHandler( this::deleteItem );
+
+        itemList = dao.loadInventory();
     }
 
     /**
@@ -56,10 +58,21 @@ public class InventoryController {
             return;
         }
 
+        boolean isBroken = view.getIsBroken();
         //Daten sind valide
-        itemList.add( new Item(id, name, date) );
+        boolean success = itemList.add( new Item(id, name, date, isBroken) );
+
+        if(!success){
+            view.showErrorMessage("Gerät konnte nicht gespeichert werden.");
+            return;
+        }
+
         dao.saveInventory(itemList);
         System.out.println(itemList.getLast().getName());
+
+        view.showInfoMessage("Gerät wurde gespeichert");
+
+
 
     }
 
@@ -95,9 +108,15 @@ public class InventoryController {
         String text = "";
 
         for( Item item : itemList){
+            String isBroken = "nein";
+
+            if(item.isBroken())
+                isBroken = "ja";
+
             text +="ID: " + item.getId() + "\n";
             text +="Name: " + item.getName() + "\n";
-            text +="Gekauft: " + item.getDate() + "\n\n";
+            text +="Gekauft: " + item.getDate() + "\n";
+            text +="Defekt: " + isBroken + "\n\n";
         }
 
         view.showInfoMessage( text );
